@@ -1,6 +1,7 @@
 html {
   font-size: 10px;
-  background: url('/b9r5sEL.jpg') center center;
+  background-image: url('b9r5sEL.jpg');
+  background-position: center;
   background-size: cover;
 }
 
