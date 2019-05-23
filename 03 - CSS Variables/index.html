@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Scoped CSS Variables and JS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
   <h2>Update CSS Variables with <span class='hl'>JS</span></h2>
@@ -25,7 +26,14 @@
     /*
       misc styles, nothing to do with CSS variables
     */
-
+	:root {
+		--spacing : 10px;
+		--blur : 10px;
+		--color: #ffc600;
+	}
+	*{
+		box-sizing: border-box;
+	}
     body {
       text-align: center;
       background: #193549;
@@ -42,10 +50,26 @@
     input {
       width: 100px;
     }
-  </style>
+	img {
+		width: 100%;
+		padding: var(--spacing);
+		filter: blur(var(--blur));
+		background-color: var(--color);
+	}
+	span.hl{
+		color: var(--color);
+	}
+</style>
 
-  <script>
-  </script>
+
+<script>
+	const handlers = document.querySelectorAll('.controls input');
+	handlers.forEach(handler =>  handler.addEventListener('input',update));
+	function update(){
+		const xp = this.dataset.sizing || '';
+		document.documentElement.style.setProperty(`--${this.name}`,`${this.value}`+xp)
+	}
+</script>
 
 </body>
 </html>
