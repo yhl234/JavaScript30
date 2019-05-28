@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HTML5 Canvas</title>
+</head>
+<body>
+<canvas id="draw" width="800" height="800"></canvas>
+<script>
+const canvas = document.querySelector('#draw');
+const ctx = canvas.getContext('2d');
+canvas.height = window.innerHeight;
+canvas.width = window.innerWidth;
+ctx.lineJoin = 'round';
+ctx.lineCap = 'round';
+ctx.lineWidth = 1;
+ctx.strokeStyle = '#BADA55';
+let lastX = 0;
+let lastY = 0;
+let beginX = 0;
+let beginY = 0;
+let isDraw = false;
+
+
+document.addEventListener('mouseup',()=> isDraw = false ) 
+document.addEventListener('mousedown',begin ) 
+document.addEventListener('mousedown',()=> isDraw = true ) 
+document.addEventListener('mousemove',draw ) 
+
+function begin(e){
+	beginX = e.offsetX
+	beginY = e.offsetY;
+}
+
+
+function draw(e){
+	if(isDraw == true){
+		ctx.beginPath();
+		ctx.moveTo(beginX, beginY);
+		ctx.lineTo(e.offsetX, e.offsetY)
+		ctx.stroke();
+		beginX = e.offsetX;
+		beginY = e.offsetY;
+		ctx.lineWidth = getRandomIntInclusive(1,10);
+		ctx.strokeStyle = `rgb(${getRandomIntInclusive(0,255)},${getRandomIntInclusive(0,255)},${getRandomIntInclusive(0,255)})`;
+	}
+}
+
+function getRandomIntInclusive(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+</script>
+
+<style>
+  html, body {
+    margin: 0;
+  }
+</style>
+
+</body>
+</html>
