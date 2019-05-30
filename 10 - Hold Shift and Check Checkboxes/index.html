@@ -96,6 +96,24 @@
   </div>
 
 <script>
+let between = [];
+const checkBoxesArray = [...document.querySelectorAll('.inbox input[type="checkbox"]')];
+checkBoxesArray.forEach(checkBox => checkBox.addEventListener('click',indexOfBox))
+
+function indexOfBox(e){
+	if (e.shiftKey && this.checked){
+		const index = checkBoxesArray.indexOf(this)
+		between.push(index);
+		if (between.length==2){
+			between.sort((a,b)=> a > b ? 1 : -1);
+			let boxes = checkBoxesArray.slice(between[0],between[1]);
+			boxes.forEach(box => box.checked = true)
+			between = [];
+			boxes = []
+			}
+	}
+}
+
 </script>
 </body>
 </html>
