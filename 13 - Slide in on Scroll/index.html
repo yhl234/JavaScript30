@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Document</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
 
@@ -43,21 +44,40 @@
   </div>
 
   <script>
-    function debounce(func, wait = 20, immediate = true) {
-      var timeout;
-      return function() {
-        var context = this, args = arguments;
-        var later = function() {
-          timeout = null;
-          if (!immediate) func.apply(context, args);
-        };
-        var callNow = immediate && !timeout;
-        clearTimeout(timeout);
-        timeout = setTimeout(later, wait);
-        if (callNow) func.apply(context, args);
-      };
-    }
+function debounce(func, wait = 20, immediate = true) {
+	var timeout;
+	return function() {
+		var context = this, args = arguments;
+		var later = function() {
+			timeout = null;
+			if (!immediate) func.apply(context, args);
+		};
+	var callNow = immediate && !timeout;
+	clearTimeout(timeout);
+	timeout = setTimeout(later, wait);
+	if (callNow) func.apply(context, args);
+	};
+}
 
+const imgs = document.querySelectorAll('.slide-in');
+
+function checkSlide() {
+	const scrollButtom = window.scrollY+window.innerHeight
+	//helf and show
+	imgs.forEach( img=>{
+		// const slideInAt = scrollButtom - img.height/2;
+		const imageBottom = img.offsetTop + img.height;
+		if (scrollButtom > img.offsetTop && window.scrollY < imageBottom){
+			img.classList.add('active')
+		} else{
+			img.classList.remove('active')
+		}
+	})
+
+}
+//
+
+document.addEventListener('scroll', debounce(checkSlide))
   </script>
 
   <style>
